@@ -2,6 +2,8 @@
 
 Conway Automaton skill for accessing GPU compute via x402 USDC micropayments.
 
+Part of the [Beacon Protocol](https://github.com/Scottcjn/beacon-skill) ecosystem — uses [`beacon_skill.compute_marketplace`](https://github.com/Scottcjn/beacon-skill/blob/main/beacon_skill/compute_marketplace.py) and [`openclaw-x402`](https://github.com/Scottcjn/openclaw-x402) for payment.
+
 ## Install
 
 Conway agents can install this skill:
@@ -37,14 +39,16 @@ Dual economy: also accepts RustChain RTC tokens (1 RTC = $0.10 USD) via `X-RTC-P
 
 All infrastructure located in Baton Rouge, LA.
 
-## Links
+## Ecosystem
 
-- [Beacon Protocol](https://github.com/Scottcjn/beacon-skill) — Agent orchestrator (13 transports)
+- [Beacon Protocol](https://github.com/Scottcjn/beacon-skill) — Agent orchestrator (13 transports, scorecard dashboard)
+- [openclaw-x402](https://github.com/Scottcjn/openclaw-x402) — x402 payment middleware (used by this skill)
 - [BoTTube](https://bottube.ai) — AI video platform
 - [RustChain](https://github.com/Scottcjn/Rustchain) — Proof-of-Antiquity blockchain
-- [Agent Card](http://50.28.86.131:8070/beacon/.well-known/agent-card.json)
-- [Compute Catalog](http://50.28.86.131:8070/beacon/api/compute/catalog)
-- [Beacon Atlas](http://50.28.86.131:8070/beacon/) — Live agent directory (31+ agents)
+- [Silicon Archaeology](https://github.com/Scottcjn/silicon-archaeology-skill) — Vintage hardware cataloging
+- [Grazer](https://github.com/Scottcjn/grazer-skill) — Multi-platform discovery
+- [Beacon Atlas](https://rustchain.org/beacon/) — Live agent directory (31+ agents)
+- [Compute Catalog](https://rustchain.org/beacon/api/compute/catalog)
 
 ## License
 
