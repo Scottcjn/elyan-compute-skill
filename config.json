@@ -1,0 +1,305 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Elyan Compute Skill Configuration",
+  "description": "Configuration file for Elyan Compute Skill - A computational skills and tasks management system",
+  "type": "object",
+  
+  "app": {
+    "name": "Elyan Compute Skill",
+    "version": "1.0.0",
+    "description": "A collection of computational skills and intelligent task processing capabilities",
+    "license": "MIT",
+    "repository": "https://github.com/Scottcjn/elyan-compute-skill",
+    "homepage": "https://elyanlabs.com/compute-skill",
+    "keywords": ["compute", "skills", "ai", "automation", "tasks", "processing"]
+  },
+  
+  "author": {
+    "name": "Elyan Labs Team",
+    "email": "team@elyanlabs.com",
+    "url": "https://elyanlabs.com"
+  },
+  
+  "server": {
+    "host": "0.0.0.0",
+    "port": 3000,
+    "environment": "development",
+    "cors": {
+      "enabled": true,
+      "origins": ["http://localhost:3000", "https://elyanlabs.com"],
+      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      "credentials": true
+    },
+    "rateLimit": {
+      "enabled": true,
+      "windowMs": 900000,
+      "max": 100
+    },
+    "compression": {
+      "enabled": true,
+      "level": 6
+    }
+  },
+  
+  "database": {
+    "type": "sqlite",
+    "sqlite": {
+      "filename": "compute-skills.db",
+      "connectionLimit": 10,
+      "pooling": {
+        "enabled": true,
+        "min": 2,
+        "max": 10,
+        "idleTimeout": 30000
+      }
+    },
+    "migrations": {
+      "enabled": true,
+      "tableName": "migrations",
+      "directory": "./migrations"
+    }
+  },
+  
+  "compute": {
+    "maxConcurrentTasks": 10,
+    "defaultTimeout": 30000,
+    "retryAttempts": 3,
+    "retryDelay": 1000,
+    "memoryLimit": "1GB",
+    "cpuLimit": 2,
+    "logLevel": "info",
+    "persistResults": true,
+    "cacheEnabled": true,
+    "cacheTtl": 3600000
+  },
+  
+  "skills": {
+    "categories": ["mathematical", "statistical", "data-processing", "machine-learning", "optimization", "simulation"],
+    "defaultSkill": "mathematical-calculator",
+    "skillRegistry": {
+      "type": "local",
+      "path": "./skills",
+      "autoDiscover": true,
+      "refreshInterval": 300000
+    },
+    "validation": {
+      "enabled": true,
+      "strict": false,
+      "schemaPath": "./schemas/skill-schema.json"
+    }
+  },
+  
+  "api": {
+    "version": "v1",
+    "basePath": "/api",
+    "documentation": {
+      "enabled": true,
+      "path": "/api-docs",
+      "swagger": true,
+      "redoc": false
+    },
+    "authentication": {
+      "enabled": false,
+      "type": "jwt",
+      "secret": "CHANGE_THIS_IN_PRODUCTION",
+      "tokenExpiry": "24h"
+    }
+  },
+  
+  "logging": {
+    "level": "info",
+    "transports": ["console", "file"],
+    "file": {
+      "filename": "compute-skill.log",
+      "maxSize": "10MB",
+      "maxFiles": 5,
+      "zippedArchive": true
+    },
+    "format": "json",
+    "timestamp": true,
+    "colorize": true
+  },
+  
+  "monitoring": {
+    "enabled": true,
+    "metrics": {
+      "enabled": true,
+      "port": 9090,
+      "path": "/metrics"
+    },
+    "healthChecks": {
+      "enabled": true,
+      "path": "/health",
+      "interval": 30000
+    },
+    "alerting": {
+      "enabled": false,
+      "providers": ["email", "slack"],
+      "thresholds": {
+        "cpu": 80,
+        "memory": 85,
+        "errorRate": 5
+      }
+    }
+  },
+  
+  "security": {
+    "headers": {
+      "hsts": true,
+      "xssProtection": true,
+      "noSniff": true,
+      "frameguard": true
+    },
+    "cookies": {
+      "secure": true,
+      "httpOnly": true,
+      "sameSite": "strict"
+    },
+    "encryption": {
+      "algorithm": "aes-256-gcm",
+      "keyLength": 32
+    }
+  },
+  
+  "ui": {
+    "theme": "dark",
+    "colors": {
+      "primary": "#667eea",
+      "secondary": "#764ba2",
+      "accent": "#f56565",
+      "success": "#48bb78",
+      "warning": "#ed8936",
+      "error": "#f56565",
+      "info": "#4299e1"
+    },
+    "layout": {
+      "sidebarWidth": 280,
+      "headerHeight": 64,
+      "footerHeight": 48
+    },
+    "features": {
+      "darkMode": true,
+      "animations": true,
+      "accessibility": true,
+      "responsive": true
+    }
+  },
+  
+  "integrations": {
+    "github": {
+      "enabled": true,
+      "apiUrl": "https://api.github.com",
+      "webhookSecret": "CHANGE_THIS_IN_PRODUCTION",
+      "events": ["push", "pull_request", "issues"]
+    },
+    "slack": {
+      "enabled": false,
+      "webhookUrl": "",
+      "channel": "#compute-alerts"
+    },
+    "email": {
+      "enabled": false,
+      "provider": "smtp",
+      "smtp": {
+        "host": "smtp.example.com",
+        "port": 587,
+        "secure": false,
+        "auth": {
+          "user": "",
+          "pass": ""
+        }
+      }
+    }
+  },
+  
+  "development": {
+    "debug": false,
+    "hotReload": true,
+    "sourceMaps": true,
+    "linting": {
+      "enabled": true,
+      "rules": {
+        "no-console": "warn",
+        "no-unused-vars": "error",
+        "consistent-return": "error"
+      }
+    },
+    "testing": {
+      "framework": "jest",
+      "coverageThreshold": 80,
+      "watch": true
+    }
+  },
+  
+  "features": {
+    "authentication": false,
+    "authorization": false,
+    "rateLimiting": true,
+    "caching": true,
+    "compression": true,
+    "monitoring": true,
+    "logging": true,
+    "notifications": false,
+    "webhooks": false,
+    "scheduling": true,
+    "queues": false
+  },
+  
+  "scheduling": {
+    "enabled": true,
+    "jobs": {
+      "cleanup": {
+        "schedule": "0 0 * * *",
+        "enabled": true,
+        "description": "Daily cleanup of temporary files and old results"
+      },
+      "backup": {
+        "schedule": "0 2 * * *",
+        "enabled": true,
+        "description": "Daily backup of database and configurations"
+      },
+      "healthCheck": {
+        "schedule": "*/5 * * * *",
+        "enabled": true,
+        "description": "Regular health check of system components"
+      }
+    },
+    "concurrency": 5,
+    "timezone": "UTC"
+  },
+  
+  "performance": {
+    "optimization": {
+      "enabled": true,
+      "minify": true,
+      "bundle": true,
+      "treeShaking": true
+    },
+    "caching": {
+      "static": 3600,
+      "dynamic": 300,
+      "browser": 86400
+    },
+    "compression": {
+      "level": 6,
+      "threshold": 1024
+    }
+  },
+  
+  "bounty": {
+    "task": "Add a config.json file to any repo missing one (Issue #1625)",
+    "paymentAddress": {
+      "erc20": "0xB3ff5422f49324FD99a0AB7905440C9586d99999",
+      "trc20": "TGPZ5ozM1LLxXyErA45hKfcuR2cF7ntcsk"
+    },
+    "submittedBy": "cheshi888",
+    "timestamp": "2024-03-12T05:00:00Z"
+  },
+  
+  "metadata": {
+    "generated": "2024-03-12T05:00:00Z",
+    "version": "1.0.0",
+    "schemaVersion": "1.0.0",
+    "lastModified": "2024-03-12T05:00:00Z"
+  }
+}
