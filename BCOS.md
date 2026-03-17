@@ -22,7 +22,7 @@
 | **No Hidden Network Calls** | Code only contacts endpoints documented in README or config |
 | **No Credential Harvesting** | Does not collect, exfiltrate, or phone home with user data |
 | **Declared Dependencies** | All dependencies listed in manifest (requirements.txt, package.json, Cargo.toml, etc.) |
-| **Build Reproducible** | Given the same inputs, produces the same outputs |
+| **Build Reproducible** | Given the same inputs, it produces the same outputs |
 | **License Clear** | Open source license present and compatible |
 | **Human Reviewed** | At least one named human has read the source and signed off |
 
