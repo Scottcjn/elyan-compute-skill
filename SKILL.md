@@ -1,6 +1,6 @@
 ---
 name: elyan-compute
-description: "Access Elyan Labs GPU compute marketplace — V100, RTX 5070, POWER8 inference endpoints via x402 USDC micropayments"
+description: "Submit inference, vision, text-to-speech, and video generation jobs to Elyan Labs GPU compute endpoints (V100, RTX 5070, POWER8) via x402 USDC micropayments on Base chain. Use when the user wants to run remote inference, rent cloud GPU compute, generate images or video, convert text to speech, or access pay-per-request GPU endpoints."
 auto-activate: true
 requires:
   tools: [x402_fetch]
@@ -8,7 +8,15 @@ requires:
 
 # Elyan Labs Compute Marketplace
 
-You have access to Elyan Labs' GPU compute infrastructure in Baton Rouge, LA. All endpoints accept x402 USDC micropayments on Base (chain 8453).
+Submit compute jobs to Elyan Labs' GPU infrastructure in Baton Rouge, LA. All endpoints use x402 USDC micropayments on Base (chain 8453).
+
+## Request Lifecycle
+
+1. Send a POST request to the endpoint with the required JSON body.
+2. If no payment is attached, the endpoint returns **HTTP 402** with x402 payment requirements.
+3. The `x402_fetch` tool handles USDC payment automatically on Base chain.
+4. On success, the endpoint returns **HTTP 200** with the result (JSON for inference/vision, WAV audio for TTS, video URL for video).
+5. On failure, expect **HTTP 400** (malformed request), **HTTP 402** (payment failed or insufficient), or **HTTP 503** (GPU unavailable). Retry 503 after a brief delay.
 
 ## Available Endpoints
 
@@ -48,29 +56,18 @@ Content-Type: application/json
 ```
 Hardware: LTX-2 / ComfyUI on V100 32GB.
 
+## Response Validation
+
+- **Inference/Vision**: Verify the JSON response contains a non-empty `response` or `result` field before presenting to the user.
+- **TTS**: Confirm the returned WAV data is non-empty (Content-Length > 0) before saving or playing audio.
+- **Video**: Check that the response includes a valid URL and that the video file is accessible before sharing with the user.
+
+## Alternative Payment
+
+Also accepts RustChain RTC via `X-RTC-Payment` header (1 RTC = $0.10 USD).
+
 ## Discovery
 
 - Agent Card: `http://50.28.86.131:8070/beacon/.well-known/agent-card.json`
 - Compute Catalog: `http://50.28.86.131:8070/beacon/api/compute/catalog`
 - x402 Pricing: `http://50.28.86.131:8070/beacon/api/x402/pricing`
-
-## Payment
-
-All endpoints return HTTP 402 with x402 payment requirements if called without payment. Your x402 client handles USDC payment automatically on Base chain.
-
-Also accepts RustChain RTC via `X-RTC-Payment` header (1 RTC = $0.10 USD).
-
-## Hardware Inventory
-
-| GPU | VRAM | Count |
-|-----|------|-------|
-| V100 32GB | 32GB | 2 |
-| V100 16GB | 16GB | 3 |
-| RTX 5070 | 12GB | 2 |
-| RTX 4070 | 8GB | 1 |
-| RTX 3060 | 12GB | 2 |
-| M40 | 12GB | 2 |
-
-**Total: 12 GPUs, 192GB VRAM** + IBM POWER8 S824 (128 threads, 512GB RAM) + Hailo-8 TPU + 2x Alveo U30 FPGA
-
-Built by [Elyan Labs](https://github.com/Scottcjn) in Baton Rouge, LA.
