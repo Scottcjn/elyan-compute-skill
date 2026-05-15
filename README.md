@@ -49,7 +49,7 @@ All infrastructure located in Baton Rouge, LA.
 - [Silicon Archaeology](https://github.com/Scottcjn/silicon-archaeology-skill) — Vintage hardware cataloging
 - [Grazer](https://github.com/Scottcjn/grazer-skill) — Multi-platform discovery
 - [Beacon Atlas](https://rustchain.org/beacon/) — Live agent directory (31+ agents)
-- [Compute Catalog](https://rustchain.org/beacon/api/compute/catalog)
+- [Beacon Agents API](https://rustchain.org/beacon/api/agents) — Live Beacon agent metadata
 
 ## License
 
